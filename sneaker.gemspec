@@ -23,4 +23,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+
+  spec.add_dependency "tty-table", "~> 0.10.0"
+  spec.add_dependency "tty-cursor", "~> 0.5.0"
+  spec.add_dependency "pastel", "~> 0.7.2"
 end
