@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'English'
+require 'yaml'
 
 module Sneaker
   class Stage
     DIRECTORY = File.join('config', 'deploy')
+    STAGES_FILE = File.join(DIRECTORY, 'stages.yml')
 
     RAILS_RUNNER_ENV = 'RUBY_GC_TUNE_VERBOSE=0'.freeze
 
@@ -27,7 +29,15 @@ module Sneaker
           new file
         end
 
-      list.reject { |stage| BAD_STAGES.include?(stage.name) }
+      list.reject { |stage| ignored_stages.include?(stage.name) }
+    end
+
+    def self.ignored_stages
+      stages_hash['ignore'] || []
+    end
+
+    def self.stages_hash
+      @stages_hash ||= File.exist?(STAGES_FILE) ? YAML.load_file(STAGES_FILE) : {}
     end
 
     private_class_method :build_list
