@@ -6,7 +6,7 @@ module Sneaker
   class Stage
     LIST_DIR = File.join(File.dirname(__FILE__), '..', '..', 'config', 'deploy')
 
-    RAILS_RUNNER_ENV = 'RUBY_GC_TUNE_VERBOSE=0'
+    RAILS_RUNNER_ENV = 'RUBY_GC_TUNE_VERBOSE=0'.freeze
 
     def self.files
       @files ||=
