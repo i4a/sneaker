@@ -4,13 +4,13 @@ require 'English'
 
 module Sneaker
   class Stage
-    LIST_DIR = File.join(File.dirname(__FILE__), '..', '..', 'config', 'deploy')
+    DIRECTORY = File.join('config', 'deploy')
 
     RAILS_RUNNER_ENV = 'RUBY_GC_TUNE_VERBOSE=0'.freeze
 
     def self.files
       @files ||=
-        Dir[File.join(LIST_DIR, '**rb')]
+        Dir[File.join(DIRECTORY, '**rb')]
     end
 
     def self.list
