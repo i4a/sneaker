@@ -76,7 +76,10 @@ module Sneaker
       rails_command = "Account.current = Account.where(name: '#{name_application}').first; print proc { #{rails_command} }.call"
       escaped_rails_command = escape_single_quotes(rails_command)
 
-      server_command = "cd app/current; #{RAILS_RUNNER_ENV} bundle exec rails r '#{escaped_rails_command}'"
+      shell_command = "#{RAILS_RUNNER_ENV} bundle exec rails r '#{escaped_rails_command}'"
+      escaped_shell_command = escape_single_quotes(shell_command)
+
+      server_command = "cd app/current; bash --login -c '#{escaped_shell_command}'"
       escaped_server_command = escape_single_quotes(server_command)
 
       result = `ssh #{force_keys} #{user}@#{server} '#{escaped_server_command}' #{debug}`
