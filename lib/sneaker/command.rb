@@ -33,7 +33,7 @@ module Sneaker
 
     def multiple_execute
       stages = Stage.all
-      presentation = Presentation.new(stages.map(&:name))
+      presentation = Presentation.create(stages.map(&:name))
       threads = []
       mutex = Mutex.new
 

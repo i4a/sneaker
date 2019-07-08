@@ -4,44 +4,52 @@ require 'tty-table'
 require 'tty-cursor'
 require 'pastel'
 
+require 'sneaker/presentation/csv'
+require 'sneaker/presentation/table'
+
 module Sneaker
   class Presentation
+    def self.create(stages)
+      klass = case ENV.fetch('format', '').downcase
+              when 'csv'
+                CSV
+              else
+                Table
+              end
+
+      klass.new(stages)
+    end
+
     def initialize(stages)
-      @table = []
       @stages = stages.sort
       @cursor = TTY::Cursor
-      @pastel = Pastel.new
 
-      @stages.each do |stage|
-        @table << [formatted_stage(stage), @pastel.inverse('loading...')]
-      end
-
+      initialize_results
       draw
     end
 
     def set(stage, result)
-      set_in_table(stage, result)
+      @results[stage] = formatted_result(result)
 
       redraw
     end
 
     private
 
-    def formatted_stage(stage)
-      @pastel.bold(stage)
+    def initialize_results
+      @results = {}
+
+      @stages.each do |stage|
+        @results[stage] = empty_result
+      end
+    end
+
+    def empty_result
+      '⏳'
     end
 
     def formatted_result(result)
-      return @pastel.on_red('!error') if result == :error
-      return @pastel.red(result)      if result == 'false'
-      return @pastel.green(result)    if result == 'true'
       result
-    end
-
-    def set_in_table(stage, result)
-      @table.each do |row|
-        row[1] = formatted_result(result) if row.first == formatted_stage(stage)
-      end
     end
 
     def redraw
@@ -50,13 +58,8 @@ module Sneaker
     end
 
     def clear
-      print @cursor.up(@tty_table.rows_size + 2)
+      print @cursor.up(output_lines)
       print @cursor.clear_line_after
-    end
-
-    def draw
-      @tty_table = TTY::Table.new(@table)
-      puts @tty_table.render(:unicode)
     end
   end
 end
