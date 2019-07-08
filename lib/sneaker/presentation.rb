@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'tty-table'
 require 'tty-cursor'
-require 'pastel'
 
 require 'sneaker/presentation/csv'
 require 'sneaker/presentation/table'
