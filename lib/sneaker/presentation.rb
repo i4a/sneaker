@@ -38,11 +38,11 @@ module Sneaker
       @results = {}
 
       @stages.each do |stage|
-        @results[stage] = empty_result
+        @results[stage] = loading_result
       end
     end
 
-    def empty_result
+    def loading_result
       '⏳'
     end
 
