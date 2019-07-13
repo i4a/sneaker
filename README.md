@@ -2,6 +2,8 @@
 
 Sneaker lets you launch a rails command in multiple capistrano stages simultaneously
 
+![sneaker demo](sneaker.gif)
+
 ## Installation
 
 Add this line to your application's Gemfile:
