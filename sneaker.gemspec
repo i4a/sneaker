@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "gem-release"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "reek"
+  spec.add_development_dependency "simplecov"
 
   spec.add_dependency "tty-table", "~> 0.10.0"
   spec.add_dependency "tty-cursor", "~> 0.5.0"
