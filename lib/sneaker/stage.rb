@@ -64,7 +64,7 @@ module Sneaker
 
     def user
       @user ||=
-        server_line[/user: '([\w]+)'/, 1]
+        server_line[/user: '([\w-]+)'/, 1]
     end
 
     def name_application
